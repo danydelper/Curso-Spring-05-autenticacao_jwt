@@ -15,7 +15,7 @@ import io.jsonwebtoken.SignatureAlgorithm;
 @Service
 public class JwtService {
     
-    private static final String SIGNIN_KEY = "w1LJWlpBEW80zc0nndL38ZdxmOpHKxE4";
+    private static final String SIGNIN_KEY = "omvYbuG1BtJ5xrbWYJPjaphGeoRl5aog";
 
     private static final int EXPIRATION_TIME = 30;
 
@@ -40,10 +40,17 @@ public class JwtService {
         return claims.getExpiration();
     } 
 
+    public String getUsernameFromToken(String token) {
+        Claims claims = getClaims(token);
+
+        return claims.getSubject();
+    }
+
     private Claims getClaims(String token) {
         return Jwts.parser()
             .setSigningKey(SIGNIN_KEY)
             .parseClaimsJws(token)
             .getBody();
     }
+
 }
